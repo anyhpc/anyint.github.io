@@ -68,7 +68,7 @@
     <article id="post-solove--opensuse-failed-to-start-load-kernerl-modules" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/06/25/solove--opensuse-failed-to-start-load-kernerl-modules/" class="article-date">
-  <time datetime="2015-06-25T11:50:40.000Z" itemprop="datePublished">Jun 25 2015</time>
+  <time datetime="2015-06-25T11:55:41.000Z" itemprop="datePublished">Jun 25 2015</time>
 </a>
     
   </div>
@@ -92,59 +92,14 @@
 <h3 id="第一步:查">第一步:查</h3><p>使用如上关键词依次在 baidu bing google 上查询了一遍<br>这个问题在baidu上只能找到贴吧上的一个帖子但是没有给出解决方案，大部分都是讲关于虚拟机的问题，<br>在bing上找到了一个有用的线索，但是还是没有看明白，但google 上给出了大量的中英文信息。<br>主要参考了 这个帖子<br><a href="https://bbs.archlinux.org/viewtopic.php?id=187529" target="_blank" rel="external">https://bbs.archlinux.org/viewtopic.php?id=187529</a><br>里面两个人对话 讲到分别在 /etc/modules-load.d/  和 /usr/lib/modules-load.d 文件夹中查看有没有文件<br>并解决了问题，我就甩开膀子开干了</p>
 <h3 id="第二步：试">第二步：试</h3><p> 我打开上述两个文件夹，第一个文件夹也是空的，但是在第二个文件夹里找到了两个文件。<br>将这两个文件 复制到主文件夹中新建的临时文件目录，以免删除错了来恢复<br>这两个文件分别是 bbswitch.conf sg.conf<br>里面文件内容如下 ：<br>  bbswitch.conf<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bbswitch</span><br></pre></td></tr></table></figure></p>
 <p> sg.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># load sg module at boot time&#10;sg</span><br></pre></td></tr></table></figure></p>
-<p>然后 我就用sudo rm s<em> b</em> 删除了这两个文件了<br> 接下来 参考了另一篇博文<br><a href="chen.junchang.blog.163.com/blog/static/6344519201503135322287/">chen.junchang.blog.163.com/blog/static/6344519201503135322287/</a><br>使用了 sudo mkinitrd 重新生成启动映像<br>生成过程中产生了一堆堆引导modules的错误，不知道是不是没有插入软件源U盘的原因。<br>然后重启</p>
+<p>然后 我就用sudo rm s<em> b</em> 删除了这两个文件了<br> 接下来 参考了另一篇博文<br><a href="http://chen.junchang.blog.163.com/blog/static/6344519201503135322287/" target="_blank" rel="external">chen.junchang.blog.163.com/blog/static/6344519201503135322287/</a><br>使用了 sudo mkinitrd 重新生成启动映像<br>生成过程中产生了一堆堆引导modules的错误，不知道是不是没有插入软件源U盘的原因。<br>然后重启</p>
 <h3 id="第三步：查">第三步：查</h3><p>重启后心惊胆跳地等待，没有报错，谢天谢地，<br>我等学渣基础不牢固，做事情总是自己对自己都不放心的</p>
 <p>最后，记录此文以给自己和读者参考</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/solove--opensuse-failed-to-start-load-kernerl-modules/" data-id="cibc4pi8n0008tk45w8y8va2j" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/25/hello-world/" class="article-date">
-  <time datetime="2015-06-25T11:09:27.000Z" itemprop="datePublished">Jun 25 2015</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/25/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/hello-world/" data-id="cibc4pi97000dtk45jh2n89jn" class="article-share-link">Share</a>
+      <a data-url="http://anyint.net/2015/06/25/solove--opensuse-failed-to-start-load-kernerl-modules/" data-id="cibc4voc20008vo450scfwg98" class="article-share-link">Share</a>
       
       
     </footer>
@@ -185,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/matlab2012a-on-opensuse13 /" data-id="cibc4pi93000ctk45gmgm9qqh" class="article-share-link">Share</a>
+      <a data-url="http://anyint.net/2015/06/25/matlab2012a-on-opensuse13 /" data-id="cibc4voci000cvo45g5aa5h2m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -212,61 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/声子/" data-id="cibc4pi830003tk457w4vwn7m" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-优化行为方式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/25/优化行为方式/" class="article-date">
-  <time datetime="2015-06-25T10:42:02.000Z" itemprop="datePublished">Jun 25 2015</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>做人应当把主要精力和时间放到自己及与自己相关的事情上，<br>要对自己负责，经营自己的生活，感情，健康，事业，<br>承担错误的后果，也享受成就的业绩，<br>也要有一种人人当为自己的一言一行，所做所为负责的心态，<br>要忌讳和避免的是过分关心别人的事情，<br>和要求别人关心自己的事情的心态，<br>要分辨清楚这两种事情，<br>审视和判断自己，而不是随意评论和纠缠他人的所做所为，<br>对他人和外界的环境一样只能观察，总结规律，并给予相应的回应。<br>而不是自以为是的认为外界当按照个人的想法运转，那是懒惰的行为方式，<br>对自己也要观察和审视，并加以控制和协调，优化自己。<br>有准备过好孤独的基础，才能有实力与人沟通和合作，<br>与自己相伴，是其他的基础。在外不惹事，惹事了也不怕事。<br>要纠正十多年来潜移默化的，过分依赖外界的行为方式，<br>学习更好的爱，珍惜，<br>经营自己这个渺小而又对自己无可替代的生命。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/优化行为方式/" data-id="cibc4pi8b0005tk45i4b1yh3k" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-不要做感动自己的事情" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/25/不要做感动自己的事情/" class="article-date">
-  <time datetime="2015-06-25T10:42:02.000Z" itemprop="datePublished">Jun 25 2015</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>人生的一个大忌讳 便是做感动自己或者‘感动’他人的事情。<br>越是有救赎的路径，便会越是肆无忌惮，不计后果，<br>于是感动自己，感动菩萨，感动上帝，感动真主，<br>变成为毁灭和助纣为虐的推进器<br>花有重开日，人无再少年，<br>做好该做的事情，不有奢求，也不用力过猛<br>凡是清楚成本代价，以及后果与收益，<br>不糊弄自己，也不愚弄他人，<br>自以为是的，当别人是傻子<br>为人当如此</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/不要做感动自己的事情/" data-id="cibc4pi8g0006tk45tfqufklc" class="article-share-link">Share</a>
+      <a data-url="http://anyint.net/2015/06/25/声子/" data-id="cibc4vobl0003vo45esfz88id" class="article-share-link">Share</a>
       
       
     </footer>
@@ -301,7 +202,88 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/one/" data-id="cibc4pi91000btk45s7cxm4rf" class="article-share-link">Share</a>
+      <a data-url="http://anyint.net/2015/06/25/one/" data-id="cibc4vocf000bvo455em99abs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-优化行为方式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/25/优化行为方式/" class="article-date">
+  <time datetime="2015-06-25T10:42:02.000Z" itemprop="datePublished">Jun 25 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>做人应当把主要精力和时间放到自己及与自己相关的事情上，<br>要对自己负责，经营自己的生活，感情，健康，事业，<br>承担错误的后果，也享受成就的业绩，<br>也要有一种人人当为自己的一言一行，所做所为负责的心态，<br>要忌讳和避免的是过分关心别人的事情，<br>和要求别人关心自己的事情的心态，<br>要分辨清楚这两种事情，<br>审视和判断自己，而不是随意评论和纠缠他人的所做所为，<br>对他人和外界的环境一样只能观察，总结规律，并给予相应的回应。<br>而不是自以为是的认为外界当按照个人的想法运转，那是懒惰的行为方式，<br>对自己也要观察和审视，并加以控制和协调，优化自己。<br>有准备过好孤独的基础，才能有实力与人沟通和合作，<br>与自己相伴，是其他的基础。在外不惹事，惹事了也不怕事。<br>要纠正十多年来潜移默化的，过分依赖外界的行为方式，<br>学习更好的爱，珍惜，<br>经营自己这个渺小而又对自己无可替代的生命。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/25/优化行为方式/" data-id="cibc4vobs0005vo45op9syl01" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-不要做感动自己的事情" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/25/不要做感动自己的事情/" class="article-date">
+  <time datetime="2015-06-25T10:42:02.000Z" itemprop="datePublished">Jun 25 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>人生的一个大忌讳 便是做感动自己或者‘感动’他人的事情。<br>越是有救赎的路径，便会越是肆无忌惮，不计后果，<br>于是感动自己，感动菩萨，感动上帝，感动真主，<br>变成为毁灭和助纣为虐的推进器<br>花有重开日，人无再少年，<br>做好该做的事情，不有奢求，也不用力过猛<br>凡是清楚成本代价，以及后果与收益，<br>不糊弄自己，也不愚弄他人，<br>自以为是的，当别人是傻子<br>为人当如此</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/25/不要做感动自己的事情/" data-id="cibc4vobv0006vo45dmukv98z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-自力更生" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/25/自力更生/" class="article-date">
+  <time datetime="2015-06-25T10:42:01.000Z" itemprop="datePublished">Jun 25 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>天行健，君子以自强不息</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/25/自力更生/" data-id="cibc4vobi0002vo4580nbxt1p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -330,7 +312,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -346,15 +328,15 @@
           </li>
         
           <li>
-            <a href="/2015/06/25/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
             <a href="/2015/06/25/matlab2012a-on-opensuse13 /">(no title)</a>
           </li>
         
           <li>
             <a href="/2015/06/25/声子/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/one/">(no title)</a>
           </li>
         
           <li>
