@@ -65,6 +65,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-solove--opensuse-failed-to-start-load-kernerl-modules" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/25/solove--opensuse-failed-to-start-load-kernerl-modules/" class="article-date">
+  <time datetime="2015-06-25T11:50:40.000Z" itemprop="datePublished">Jun 25 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/25/solove--opensuse-failed-to-start-load-kernerl-modules/">solve  [FAILED] Failed to start Load Kernel Modules</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题">问题</h2><p>安装opensuse13.2 系统更新后，开机引导内核时候每次都出现<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ [FAILED] Failed to start Load Kernel Modules</span><br><span class="line">See <span class="string">"systemctl status systemd-modules-load.service"</span> <span class="keyword">for</span> details.</span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
+<p>虽然不影响使用，但是也看着不爽，今天终于没有拖延了，解决了这个问题，记录如下</p>
+<h3 id="第一步:查">第一步:查</h3><p>使用如上关键词依次在 baidu bing google 上查询了一遍<br>这个问题在baidu上只能找到贴吧上的一个帖子但是没有给出解决方案，大部分都是讲关于虚拟机的问题，<br>在bing上找到了一个有用的线索，但是还是没有看明白，但google 上给出了大量的中英文信息。<br>主要参考了 这个帖子<br><a href="https://bbs.archlinux.org/viewtopic.php?id=187529" target="_blank" rel="external">https://bbs.archlinux.org/viewtopic.php?id=187529</a><br>里面两个人对话 讲到分别在 /etc/modules-load.d/  和 /usr/lib/modules-load.d 文件夹中查看有没有文件<br>并解决了问题，我就甩开膀子开干了</p>
+<h3 id="第二步：试">第二步：试</h3><p> 我打开上述两个文件夹，第一个文件夹也是空的，但是在第二个文件夹里找到了两个文件。<br>将这两个文件 复制到主文件夹中新建的临时文件目录，以免删除错了来恢复<br>这两个文件分别是 bbswitch.conf sg.conf<br>里面文件内容如下 ：<br>  bbswitch.conf<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bbswitch</span><br></pre></td></tr></table></figure></p>
+<p> sg.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># load sg module at boot time&#10;sg</span><br></pre></td></tr></table></figure></p>
+<p>然后 我就用sudo rm s<em> b</em> 删除了这两个文件了<br> 接下来 参考了另一篇博文<br><a href="chen.junchang.blog.163.com/blog/static/6344519201503135322287/">chen.junchang.blog.163.com/blog/static/6344519201503135322287/</a><br>使用了 sudo mkinitrd 重新生成启动映像<br>生成过程中产生了一堆堆引导modules的错误，不知道是不是没有插入软件源U盘的原因。<br>然后重启</p>
+<h3 id="第三步：查">第三步：查</h3><p>重启后心惊胆跳地等待，没有报错，谢天谢地，<br>我等学渣基础不牢固，做事情总是自己对自己都不放心的</p>
+<p>最后，记录此文以给自己和读者参考</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/25/solove--opensuse-failed-to-start-load-kernerl-modules/" data-id="cibc4pi8n0008tk45w8y8va2j" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/06/25/hello-world/" class="article-date">
@@ -100,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/hello-world/" data-id="cibc3tb3r000cql45ztpx2kdg" class="article-share-link">Share</a>
+      <a data-url="http://anyint.net/2015/06/25/hello-world/" data-id="cibc4pi97000dtk45jh2n89jn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -141,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/matlab2012a-on-opensuse13 /" data-id="cibc3tb3o000bql45y3glwsq8" class="article-share-link">Share</a>
+      <a data-url="http://anyint.net/2015/06/25/matlab2012a-on-opensuse13 /" data-id="cibc4pi93000ctk45gmgm9qqh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -168,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/声子/" data-id="cibc3tb310003ql45703olvko" class="article-share-link">Share</a>
+      <a data-url="http://anyint.net/2015/06/25/声子/" data-id="cibc4pi830003tk457w4vwn7m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -195,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/优化行为方式/" data-id="cibc3tb370005ql45wk0wsalz" class="article-share-link">Share</a>
+      <a data-url="http://anyint.net/2015/06/25/优化行为方式/" data-id="cibc4pi8b0005tk45i4b1yh3k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -222,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/不要做感动自己的事情/" data-id="cibc3tb390006ql45lq6b4s5o" class="article-share-link">Share</a>
+      <a data-url="http://anyint.net/2015/06/25/不要做感动自己的事情/" data-id="cibc4pi8g0006tk45tfqufklc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -257,34 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/one/" data-id="cibc3tb3m000aql45u3k2n7le" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-自力更生" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/25/自力更生/" class="article-date">
-  <time datetime="2015-06-25T10:42:01.000Z" itemprop="datePublished">Jun 25 2015</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>天行健，君子以自强不息</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://anyint.net/2015/06/25/自力更生/" data-id="cibc3tb2x0002ql45znfyzpaz" class="article-share-link">Share</a>
+      <a data-url="http://anyint.net/2015/06/25/one/" data-id="cibc4pi91000btk45s7cxm4rf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -313,7 +330,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -323,6 +340,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/06/25/solove--opensuse-failed-to-start-load-kernerl-modules/">solve  [FAILED] Failed to start Load Kernel Modules</a>
+          </li>
         
           <li>
             <a href="/2015/06/25/hello-world/">Hello World</a>
@@ -338,10 +359,6 @@
         
           <li>
             <a href="/2015/06/25/优化行为方式/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2015/06/25/不要做感动自己的事情/">(no title)</a>
           </li>
         
       </ul>
