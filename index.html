@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>anyint</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="anyint">
+<meta property="og:url" content="http://anyint.net/index.html">
+<meta property="og:site_name" content="anyint">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="anyint">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="anyint" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">anyint</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://anyint.net"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-xelatex中文字体" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/02/xelatex中文字体/" class="article-date">
+  <time datetime="2016-05-02T15:58:44.473Z" itemprop="datePublished">2016-05-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>opensuse xelatex 中文字体问题</p>
+<p>以下文字为实际操作记录，<br>文字大量引用自<br><a href="http://www.bfcat.com/index.php/2013/10/ubuntu-12-04-kile-texlive2013cjk/" target="_blank" rel="external">http://www.bfcat.com/index.php/2013/10/ubuntu-12-04-kile-texlive2013cjk/</a><br>以及<br><a href="https://huxuan.org/2012/07/14/chinese-font-problem-of-ctex-in-texlive-under-linux/" target="_blank" rel="external">https://huxuan.org/2012/07/14/chinese-font-problem-of-ctex-in-texlive-under-linux/</a></p>
+<p>##</p>
+<p>新建 /usr/share/fonts/winfonts 目录并且将需要的中文字体拷入<br>进入文件夹</p>
+<p>cd /usr/share/fonts/winfonts</p>
+<p>改变权限</p>
+<p>sudo chmod 744 *</p>
+<p>生成核心字体信息</p>
+<p>sudo mkfontscale<br>sudo mkfontdir<br>sudo fc-cache -f -v</p>
+<p>此时用命令</p>
+<p>sudo fc-list :lang=zh-cn</p>
+<p>查看中文字体信息。</p>
+<p>记下楷体和仿宋对应的名称，即显示信息中第一个英文<br>比如有的的系统中楷体是 KaiTi，仿宋是 FangSong<br>此处会因为安装的字体版本不同而有所差异</p>
+<p>接下来只要将对应的字体修改即可，即<br>把[SIMKAI.TTF]修改为KaiTi<br>把[SIMFANG.TTF]修改为FangSong<br>需要注意不止一处</p>
+<p>vim下的替换命令</p>
+<p>:%s/[SIMKAI.TTF]/KaiTi/g<br>:%s/[SIMFANG.TTF]/FangSong/g</p>
+<p>另一个解决方案是使用Adobe的字体，调用ctex包时增加adobefonts参数</p>
+<p>以下引用自 <a href="http://bbs.ctex.org/forum.php?mod=viewthread&amp;tid=58263&amp;page=1#pid383083" target="_blank" rel="external">http://bbs.ctex.org/forum.php?mod=viewthread&amp;tid=58263&amp;page=1#pid383083</a><br>原因是这样的（其实懒人就不必看了）：</p>
+<p>在字体定义文件 ctex-xecjk-winfonts.def 中，楷体和仿宋不是使用字体全名，而是使用字体文件名表示的。如楷书是：<br>\setCJKfamilyfont{zhkai}{[simkai.ttf]}<br>之所以这样是因为在 Windows XP 中楷书和仿宋是 GB_2313 字符集的，只有 6000 多个汉字，楷体字体全名是 KaiTi_GB2312；而在 Windows Vista 以后和版本则是 GBK 大字库的，有 20000 多个汉字，字体全名是 KaiTi。为了避免为微软的不同操作系统版本写不同的配置文件（这样更麻烦，而且 Windows 用户是大多数），就把它直接用没有变化过的字体文件名表示。</p>
+<p>这个修改就是我做的。当然对于 Linux 用户可能有一些副作用。因为上面的字体名使用的是小写字母，而通常大家拷贝的字体是大写字母（这算是我的疏忽）。你知道 Windows 不区分文件名大小写，但 Linux 区分，所以当然 Linux 找不到 simsun.ttf 这个字体了。</p>
+<p>我实在不建议 Linux 用户修改 ctex-xecjk-winfonts.def 文件。你可以使用 Windows 字体加上默认选项，但注意你安装的中文字体文件名要匹配。还有一个办法是写自己的配置文件，ctex 宏包有自己的 cfg 文件，在 …/texmf-dist/tex/latex/ctex/cfg/ctex.cfg 中，你可以在这个文件里面添加你自己的 local settings。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2016/05/02/xelatex中文字体/" data-id="cinq71n2n0006j3b20j1p6zdy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/02/hello-world/" class="article-date">
+  <time datetime="2016-05-02T15:58:44.473Z" itemprop="datePublished">2016-05-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/02/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2016/05/02/hello-world/" data-id="cinq71n230000j3b2zrx6na5b" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-one" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/02/one/" class="article-date">
+  <time datetime="2016-05-02T15:58:44.473Z" itemprop="datePublished">2016-05-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>提提，爱自己，需要的是一种信念、或者说是信仰。无论你身处何地，失恋也好，失意也罢，都要善待自己，<br>维护好自己的身心，坚强的相信自己。那些低谷，只是一季轮回，花自会有再次娇艳绽放的时候。</p>
+<p>夏屿，燃烧吧，腺嘌呤核苷三磷酸！<br>如果在不相熟的人面前絮絮叨叨自己的个人苦恼和问题，是很失礼的。</p>
+<p>不知道怎么讲话的本质是对自己的不自信，害怕说错话，<br>然后你越揣度他人的想法，越在意人家的眼光，就越拘谨。<br>你要别人认可你，首先是要自己认可自己。害羞和内向绝非缺点！</p>
+<p>你至少应该知道几乎所有的游戏都有easy mode和hard mode，hard mode我们玩不来，<br>那我们可以先玩easy mode练练手啊！交际的easy mode就是和好相处的人交往，说话。<br>就算你现在交际能力不强，但至少你看得出来哪些人是好相处的。去找这些人说话。<br>你应该还是学生吧，你可以先从问他们作业开始啊！反正有事没事，就和这些人说说话。<br>然后，最重要的是，记下和这些人说话时的感觉，想想他们说话时吸引人的点在哪里，<br>自己和他们差在什么地方（你要在一个人的时候静静的想这些，边讲边想你就会不知道要讲什么了）。<br>记住，自己得来的经验才能帮助你，卡耐基，李开复，看看过就好了。</p>
+<p>不要轻易评论他人，不要揣度他人的想法，不要受他人影响，凡事尽力而为。</p>
+<p>Wang Adaaa，J.D. candidate. Lifetime adventurer.</p>
+<p>去年特低落的时候，一个朋友告诉我要爱自己。我问怎么就叫爱自己，她说怎么对你在乎的人，就怎么对你自己。</p>
+<p>太忙了，自己想省略午餐时候，想象要是自己在乎的人没空吃饭，我肯定不准，<br>哪怕不能自己下厨，至少也要买有营养的外卖送去。然后把自己想象成那个人，<br>给自己订份外卖。<br>拖延症犯了，坐在书桌前磨蹭半天都看不进书，自暴自弃。<br>想象读高三表弟如果在磨洋工，我一定会温柔的鼓励他，<br>再坚持一会儿，把任务完成。然后同样温柔的鼓励一下自己。<br>看到特别喜欢的东西舍不得买，想象如果这是我爸爸妈妈或者喜欢的人心仪的东西，<br>我一定会毫不犹豫买下。然后同样不犹豫的买下送给自己。<br>离不开错的人，太软弱，反反复复很虐心。想象如果是我最好的朋友深陷泥沼，<br>我一定要做个恶人，无情的帮她了断。然后就无情的帮自己了断。</p>
+<p>爱自己？把自己当别人来对待吧。其实我们大多数人都善良又无私，对别人比对自己好。 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2016/05/02/one/" data-id="cinq71n2e0002j3b2mm245ejh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/02/xelatex中文字体/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/02/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/02/one/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/02/opsnsuse kernel/">solve [FAILED] Failed to start Load Kernel Modules</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/02/remmina无法通过域名登陆/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 B H Tang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
