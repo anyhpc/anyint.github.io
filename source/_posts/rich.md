@@ -1,0 +1,1 @@
+'Spend your money on the things money can buy. Spend your time on the things money can't buy.' - Haruki MurakamiGood advice for all wealth levels.
