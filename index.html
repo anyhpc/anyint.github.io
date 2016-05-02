@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>one</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="one">
+<meta property="og:url" content="http://anyint.net/index.html">
+<meta property="og:site_name" content="one">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="one">
+<meta name="twitter:description">
+  
+    <link rel="alternative" href="/atom.xml" title="one" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">one</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">line</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://anyint.net"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-solove--opensuse-failed-to-start-load-kernerl-modules" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/26/solove--opensuse-failed-to-start-load-kernerl-modules/" class="article-date">
+  <time datetime="2015-06-26T06:16:00.000Z" itemprop="datePublished">Jun 26 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/26/solove--opensuse-failed-to-start-load-kernerl-modules/">solve  [FAILED] Failed to start Load Kernel Modules</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题">问题</h2><p>安装opensuse13.2 系统更新后，开机引导内核时候每次都出现<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ [FAILED] Failed to start Load Kernel Modules</span><br><span class="line">See <span class="string">"systemctl status systemd-modules-load.service"</span> <span class="keyword">for</span> details.</span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
+<p>虽然不影响使用，但是也看着不爽，今天终于没有拖延了，解决了这个问题，记录如下</p>
+<h3 id="第一步:查">第一步:查</h3><p>使用如上关键词依次在 baidu bing google 上查询了一遍<br>这个问题在baidu上只能找到贴吧上的一个帖子但是没有给出解决方案，大部分都是讲关于虚拟机的问题，<br>在bing上找到了一个有用的线索，但是还是没有看明白，但google 上给出了大量的中英文信息。<br>主要参考了 这个帖子<br><a href="https://bbs.archlinux.org/viewtopic.php?id=187529" target="_blank" rel="external">https://bbs.archlinux.org/viewtopic.php?id=187529</a><br>里面两个人对话 讲到分别在 /etc/modules-load.d/  和 /usr/lib/modules-load.d 文件夹中查看有没有文件<br>并解决了问题，我就甩开膀子开干了</p>
+<h3 id="第二步：试">第二步：试</h3><p> 我打开上述两个文件夹，第一个文件夹也是空的，但是在第二个文件夹里找到了两个文件。<br>将这两个文件 复制到主文件夹中新建的临时文件目录，以免删除错了来恢复<br>这两个文件分别是 bbswitch.conf sg.conf<br>里面文件内容如下 ：<br>  bbswitch.conf<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bbswitch</span><br></pre></td></tr></table></figure></p>
+<p> sg.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># load sg module at boot time&#10;sg</span><br></pre></td></tr></table></figure></p>
+<p>然后 我就用<code>sudo rm s* b*</code> 删除了这两个文件了<br> 接下来 参考了另一篇博文<br><a href="http://chen.junchang.blog.163.com/blog/static/6344519201503135322287/" target="_blank" rel="external">chen.junchang.blog.163.com/blog/static/6344519201503135322287/</a><br>使用了 sudo mkinitrd 重新生成启动映像<br>生成过程中产生了一堆堆引导modules的错误，不知道是不是没有插入软件源U盘的原因。<br>然后重启</p>
+<h3 id="第三步：查">第三步：查</h3><p>重启后心惊胆跳地等待，没有报错，谢天谢地，<br>我等学渣基础不牢固，做事情总是自己对自己都不放心的</p>
+<p>最后，记录此文以给自己和读者参考</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/26/solove--opensuse-failed-to-start-load-kernerl-modules/" data-id="cibd86opt00084445lu2pa2cu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-matlab2012a-on-opensuse13 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/25/matlab2012a-on-opensuse13 /" class="article-date">
+  <time datetime="2015-06-25T11:00:54.000Z" itemprop="datePublished">Jun 25 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 opensuse 中安装 matlab时候，<br>sudo ./install 后出现报错</p>
+<p>Error: Installation cannot proceed. You may either:</p>
+<ol>
+<li>Set an X11 display, and restart the install process</li>
+<li>Use the silent install feature by specifying the -mode silent option</li>
+</ol>
+<p>解决的方法是 切换到 root用户下，启动图形界面,继续安装就没有问题了</p>
+<p>sudo su<br> startx<br>./install</p>
+<p>其他的linux版本与此类似</p>
+<p>安装完毕后<br>设置环境变量</p>
+<p>sudo vi /etc/profile</p>
+<p>在文件末尾添加</p>
+<p>export JAVA_HOME=/usr/lib/jvm/jdk1.7.0_71</p>
+<p>保存并推出，然后使用下面的命令是设置生效</p>
+<p>source /etc/profile</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/25/matlab2012a-on-opensuse13 /" data-id="cibd86oq6000c4445jpijx5fg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-声子" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/25/声子/" class="article-date">
+  <time datetime="2015-06-25T10:42:02.000Z" itemprop="datePublished">Jun 25 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>晶格动力学<br>用经典理论力学方法讨论完整晶体中原子（离子）绕平衡位置的振动——晶格振动。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/25/声子/" data-id="cibd86opc000344452w785g0b" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-one" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/25/one/" class="article-date">
+  <time datetime="2015-06-25T10:42:02.000Z" itemprop="datePublished">Jun 25 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>提提，爱自己，需要的是一种信念、或者说是信仰。无论你身处何地，失恋也好，失意也罢，都要善待自己，<br>维护好自己的身心，坚强的相信自己。那些低谷，只是一季轮回，花自会有再次娇艳绽放的时候。</p>
+<p>夏屿，燃烧吧，腺嘌呤核苷三磷酸！<br>如果在不相熟的人面前絮絮叨叨自己的个人苦恼和问题，是很失礼的。</p>
+<p>不知道怎么讲话的本质是对自己的不自信，害怕说错话，<br>然后你越揣度他人的想法，越在意人家的眼光，就越拘谨。<br>你要别人认可你，首先是要自己认可自己。害羞和内向绝非缺点！</p>
+<p>你至少应该知道几乎所有的游戏都有easy mode和hard mode，hard mode我们玩不来，<br>那我们可以先玩easy mode练练手啊！交际的easy mode就是和好相处的人交往，说话。<br>就算你现在交际能力不强，但至少你看得出来哪些人是好相处的。去找这些人说话。<br>你应该还是学生吧，你可以先从问他们作业开始啊！反正有事没事，就和这些人说说话。<br>然后，最重要的是，记下和这些人说话时的感觉，想想他们说话时吸引人的点在哪里，<br>自己和他们差在什么地方（你要在一个人的时候静静的想这些，边讲边想你就会不知道要讲什么了）。<br>记住，自己得来的经验才能帮助你，卡耐基，李开复，看看过就好了。</p>
+<p>不要轻易评论他人，不要揣度他人的想法，不要受他人影响，凡事尽力而为。</p>
+<p>Wang Adaaa，J.D. candidate. Lifetime adventurer.</p>
+<p>去年特低落的时候，一个朋友告诉我要爱自己。我问怎么就叫爱自己，她说怎么对你在乎的人，就怎么对你自己。</p>
+<p>太忙了，自己想省略午餐时候，想象要是自己在乎的人没空吃饭，我肯定不准，<br>哪怕不能自己下厨，至少也要买有营养的外卖送去。然后把自己想象成那个人，<br>给自己订份外卖。<br>拖延症犯了，坐在书桌前磨蹭半天都看不进书，自暴自弃。<br>想象读高三表弟如果在磨洋工，我一定会温柔的鼓励他，<br>再坚持一会儿，把任务完成。然后同样温柔的鼓励一下自己。<br>看到特别喜欢的东西舍不得买，想象如果这是我爸爸妈妈或者喜欢的人心仪的东西，<br>我一定会毫不犹豫买下。然后同样不犹豫的买下送给自己。<br>离不开错的人，太软弱，反反复复很虐心。想象如果是我最好的朋友深陷泥沼，<br>我一定要做个恶人，无情的帮她了断。然后就无情的帮自己了断。</p>
+<p>爱自己？把自己当别人来对待吧。其实我们大多数人都善良又无私，对别人比对自己好。 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/25/one/" data-id="cibd86oq3000b444541la7f2h" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-优化行为方式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/25/优化行为方式/" class="article-date">
+  <time datetime="2015-06-25T10:42:02.000Z" itemprop="datePublished">Jun 25 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>做人应当把主要精力和时间放到自己及与自己相关的事情上，<br>要对自己负责，经营自己的生活，感情，健康，事业，<br>承担错误的后果，也享受成就的业绩，<br>也要有一种人人当为自己的一言一行，所做所为负责的心态，<br>要忌讳和避免的是过分关心别人的事情，<br>和要求别人关心自己的事情的心态，<br>要分辨清楚这两种事情，<br>审视和判断自己，而不是随意评论和纠缠他人的所做所为，<br>对他人和外界的环境一样只能观察，总结规律，并给予相应的回应。<br>而不是自以为是的认为外界当按照个人的想法运转，那是懒惰的行为方式，<br>对自己也要观察和审视，并加以控制和协调，优化自己。<br>有准备过好孤独的基础，才能有实力与人沟通和合作，<br>与自己相伴，是其他的基础。在外不惹事，惹事了也不怕事。<br>要纠正十多年来潜移默化的，过分依赖外界的行为方式，<br>学习更好的爱，珍惜，<br>经营自己这个渺小而又对自己无可替代的生命。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/25/优化行为方式/" data-id="cibd86opj000544453in5n615" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-不要做感动自己的事情" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/25/不要做感动自己的事情/" class="article-date">
+  <time datetime="2015-06-25T10:42:02.000Z" itemprop="datePublished">Jun 25 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>人生的一个大忌讳 便是做感动自己或者‘感动’他人的事情。<br>越是有救赎的路径，便会越是肆无忌惮，不计后果，<br>于是感动自己，感动菩萨，感动上帝，感动真主，<br>变成为毁灭和助纣为虐的推进器<br>花有重开日，人无再少年，<br>做好该做的事情，不有奢求，也不用力过猛<br>凡是清楚成本代价，以及后果与收益，<br>不糊弄自己，也不愚弄他人，<br>自以为是的，当别人是傻子<br>为人当如此</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/25/不要做感动自己的事情/" data-id="cibd86opm00064445854shky3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-自力更生" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/25/自力更生/" class="article-date">
+  <time datetime="2015-06-25T10:42:01.000Z" itemprop="datePublished">Jun 25 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>天行健，君子以自强不息</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anyint.net/2015/06/25/自力更生/" data-id="cibd86op900024445erz2ijm0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/06/26/solove--opensuse-failed-to-start-load-kernerl-modules/">solve  [FAILED] Failed to start Load Kernel Modules</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/matlab2012a-on-opensuse13 /">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/声子/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/one/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/优化行为方式/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 B.H.Tang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
